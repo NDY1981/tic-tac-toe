@@ -1,0 +1,63 @@
+body {
+    background-color: teal;
+    color: white;
+    text-align: center;
+}
+
+button {
+    background-color: white;
+    color: teal;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#ticTacToe {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 90vw;
+    height: 90vw;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.square {
+    height: 27vw;
+    width: 27vw;
+    font-size: 48px;
+    margin-left: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+@media (orientation: landscape) {
+
+    #ticTacToe {
+        width: 45vh;
+        height: 45vh;
+    }
+
+    .square {
+        height: 14vh;
+        width: 14vh;
+    }
+
+}
+
+
+@media screen and (min-width: 576px) {
+
+    #ticTacToe {
+        width: 500px;
+        height: 500px;
+    }
+
+    .square {
+        height: 150px;
+        width: 150px;
+    }
+
+}
