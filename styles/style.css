@@ -9,22 +9,23 @@ button {
     color: teal;
     border-radius: 5px;
     margin-left: 10px;
+    height: 25px;
 }
 
 #ticTacToe {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 90vw;
-    height: 90vw;
+    width: 500px;
+    height: 500px;
     margin: auto;
     margin-top: 5px;
 }
 
 .square {
-    height: 27vw;
-    width: 27vw;
-    font-size: 48px;
+    height: 150px;
+    width: 150px;
     margin-left: 0;
+    font-size: 50px;
 }
 
 a {
@@ -33,7 +34,23 @@ a {
 }
 
 
-@media (orientation: landscape) {
+@media screen and (max-width: 556px) {
+
+    #ticTacToe {
+        width: 90vw;
+        height: 90vw;
+    }
+
+    .square {
+        height: 27vw;
+        width: 27vw;
+        font-size: 25px;
+    }
+
+}
+
+
+@media screen and (max-height: 700px) {
 
     #ticTacToe {
         width: 45vh;
@@ -43,21 +60,7 @@ a {
     .square {
         height: 14vh;
         width: 14vh;
-    }
-
-}
-
-
-@media screen and (min-width: 576px) {
-
-    #ticTacToe {
-        width: 500px;
-        height: 500px;
-    }
-
-    .square {
-        height: 150px;
-        width: 150px;
+        font-size: 25px;
     }
 
 }
