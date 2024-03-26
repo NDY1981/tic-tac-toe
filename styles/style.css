@@ -1,66 +1,87 @@
+/* Styling for everything else: */
+
 body {
-    background-color: teal;
-    color: white;
-    text-align: center;
-}
-
-button {
-    background-color: white;
-    color: teal;
-    border-radius: 5px;
-    margin-left: 10px;
-    height: 25px;
-}
-
-#ticTacToe {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    width: 500px;
-    height: 500px;
-    margin: auto;
-    margin-top: 5px;
-}
-
-.square {
-    height: 150px;
-    width: 150px;
-    margin-left: 0;
-    font-size: 50px;
+	text-align: center;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+	color: inherit;
+	text-decoration: none;
 }
 
 
-@media screen and (max-width: 556px) {
+/* Styling for Tic Tac Toe: */
 
-    #ticTacToe {
-        width: 90vw;
-        height: 90vw;
-    }
-
-    .square {
-        height: 27vw;
-        width: 27vw;
-        font-size: 25px;
-    }
-
+:root {
+	--first-color: rgb(240, 242, 245);
+	--fourth-color: rgb(255, 255, 255);
+	--second-color: rgb(28, 30, 33);
+	--third-color: rgb(49, 101, 246);
 }
 
+#TicTacToe {
+	background-color: var(--first-color);
+	border-radius: 20px;
+	color: var(--second-color);
+	margin: 0 auto;
+	padding: 20px;
+	width: max-content;
+}
 
-@media screen and (max-height: 700px) {
+#TicTacToe h1 {
+	margin-top: 0;
+	text-align: center;
+}
 
-    #ticTacToe {
-        width: 45vh;
-        height: 45vh;
-    }
+#Prompting {
+	align-items: center;
+	display: flex;
+	height: 50px;
+	justify-content: space-around;
+	margin: 10px 0;
+}
 
-    .square {
-        height: 14vh;
-        width: 14vh;
-        font-size: 25px;
-    }
+#Prompting p {
+	font-weight: bold;
+}
+
+#Prompting button {
+	background-color: var(--third-color);
+	border-radius: 5px;
+	color: var(--fourth-color);
+	padding: 15px;
+}
+
+#TicTacToeBoard {
+	display: grid;
+	gap: 5px;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.TicTacToeSquare {
+	background-color: var(--third-color);
+	border-radius: 10px;
+	color: var(--fourth-color);
+	font-size: 2em;
+	height: 70px;
+	padding: 0;
+	width: 70px;
+}
+
+@media screen and (min-height: 500px) and (min-width: 500px) {
+
+	#Prompting p {
+		font-size: 1.2em;
+	}
+
+	#Prompting button {
+		font-size: 1.2em;
+	}
+
+	.TicTacToeSquare {
+		font-size: 2.5em;
+		height: 100px;
+		width: 100px;
+	}
 
 }
