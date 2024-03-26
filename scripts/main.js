@@ -1,185 +1,133 @@
-function start() {
-    const instructions = document.getElementById("instructions");
-    const squareOne = document.getElementById("squareOne");
-    const squareTwo = document.getElementById("squareTwo");
-    const squareThree = document.getElementById("squareThree");
-    const squareFour = document.getElementById("squareFour");
-    const squareFive = document.getElementById("squareFive");
-    const squareSix = document.getElementById("squareSix");
-    const squareSeven = document.getElementById("squareSeven");
-    const squareEight = document.getElementById("squareEight");
-    const squareNine = document.getElementById("squareNine");
+/* Scripting for Tic Tac Toe: */
 
-    squareOne.textContent = '';
-    squareTwo.textContent = '';
-    squareThree.textContent = '';
-    squareFour.textContent = '';
-    squareFive.textContent = '';
-    squareSix.textContent = '';
-    squareSeven.textContent = '';
-    squareEight.textContent = '';
-    squareNine.textContent = '';
+const Prompting = document.querySelector("#Prompting");
+const TicTacToeBoard = document.querySelector("#TicTacToeBoard");
+const TicTacToeSquareOne = document.querySelector("#TicTacToeSquareOne");
+const TicTacToeSquareTwo = document.querySelector("#TicTacToeSquareTwo");
+const TicTacToeSquareThree = document.querySelector("#TicTacToeSquareThree");
+const TicTacToeSquareFour = document.querySelector("#TicTacToeSquareFour");
+const TicTacToeSquareFive = document.querySelector("#TicTacToeSquareFive");
+const TicTacToeSquareSix = document.querySelector("#TicTacToeSquareSix");
+const TicTacToeSquareSeven = document.querySelector("#TicTacToeSquareSeven");
+const TicTacToeSquareEight = document.querySelector("#TicTacToeSquareEight");
+const TicTacToeSquareNine = document.querySelector("#TicTacToeSquareNine");
 
-    const question = document.createElement('paragraph');
-    question.textContent = 'Who moves first?:';
-    instructions.appendChild(question);
 
-    const x = document.createElement('button');
-    x.textContent = 'X';
-    instructions.appendChild(x);
+function StartGame() {
+	const PickSides = document.createElement("p");
+	const X = document.createElement("button");
+	const O = document.createElement("button");
+	const CurrentTurn = document.createElement("p");
+	const Winner = document.createElement("p");
+	const Draw = document.createElement("p");
+	const Reset = document.createElement("button");
 
-    const o = document.createElement('button');
-    o.textContent = 'O';
-    instructions.appendChild(o);
 
-    let turn;
+	let Turn;
 
-    const currentTurn = document.createElement('paragraph');
 
-    x.onclick = function() {
-        turn = 'X';
+	function MovesFirst(e) {
+		Turn = e.target.textContent;
 
-        instructions.removeChild(question);
-        instructions.removeChild(x);
-        instructions.removeChild(o);
+		Prompting.removeChild(PickSides);
+		Prompting.removeChild(X);
+		Prompting.removeChild(O);
 
-        currentTurn.textContent = `${turn}'s turn`;
-        instructions.appendChild(currentTurn);
-    }
+		CurrentTurn.textContent = `${Turn}'s turn`;
+		Prompting.appendChild(CurrentTurn);
+		TicTacToeBoard.addEventListener("click", TicTacToeMove);
+	}
 
-    o.onclick = function() {
-        turn = 'O';
+	function TicTacToeMove(e) {
+		if (e.target.textContent === "") {
+			if (Turn === "X" || Turn === "O") {
+				e.target.textContent = Turn;
+				CheckForWin();
+				CheckForDraw();
+				if (Turn === "X") {
+					Turn = "O";
+				} else {
+					Turn = "X";
+				}
+				CurrentTurn.textContent = `${Turn}'s turn`;
+			}
+		}
+	}
 
-        instructions.removeChild(question);
-        instructions.removeChild(x);
-        instructions.removeChild(o);
+	function CheckForWin() {
+		if ((TicTacToeSquareOne.textContent === Turn && TicTacToeSquareTwo.textContent === Turn && TicTacToeSquareThree.textContent === Turn)
+			|| (TicTacToeSquareFour.textContent === Turn && TicTacToeSquareFive.textContent === Turn && TicTacToeSquareSix.textContent === Turn)
+			|| (TicTacToeSquareSeven.textContent === Turn && TicTacToeSquareEight.textContent === Turn && TicTacToeSquareNine.textContent === Turn)
+			|| (TicTacToeSquareOne.textContent === Turn && TicTacToeSquareFour.textContent === Turn && TicTacToeSquareSeven.textContent === Turn)
+			|| (TicTacToeSquareTwo.textContent === Turn && TicTacToeSquareFive.textContent === Turn && TicTacToeSquareEight.textContent === Turn)
+			|| (TicTacToeSquareThree.textContent === Turn && TicTacToeSquareSix.textContent === Turn && TicTacToeSquareNine.textContent === Turn)
+			|| (TicTacToeSquareOne.textContent === Turn && TicTacToeSquareFive.textContent === Turn && TicTacToeSquareNine.textContent === Turn)
+			|| (TicTacToeSquareSeven.textContent === Turn && TicTacToeSquareFive.textContent === Turn && TicTacToeSquareThree.textContent === Turn)) {
+			TicTacToeBoard.removeEventListener("click", TicTacToeMove);
+			Prompting.removeChild(CurrentTurn);
+			Winner.textContent = `${Turn} wins!`;
+			Prompting.appendChild(Winner);
+			Prompting.appendChild(Reset);
+			Reset.addEventListener("click", ResetAfterWin);
+		}
+	}
 
-        currentTurn.textContent = `${turn}'s turn`;
-        instructions.appendChild(currentTurn);
-    }
+	function CheckForDraw() {
+		if (TicTacToeSquareOne.textContent !== ""
+			&& TicTacToeSquareTwo.textContent !== ""
+			&& TicTacToeSquareThree.textContent !== ""
+			&& TicTacToeSquareFour.textContent !== ""
+			&& TicTacToeSquareFive.textContent !== ""
+			&& TicTacToeSquareSix.textContent !== ""
+			&& TicTacToeSquareSeven.textContent !== ""
+			&& TicTacToeSquareEight.textContent !== ""
+			&& TicTacToeSquareNine.textContent !== "") {
+			TicTacToeBoard.removeEventListener("click", TicTacToeMove);
+			Prompting.removeChild(CurrentTurn);
+			Prompting.appendChild(Draw);
+			Prompting.appendChild(Reset);
+			Reset.addEventListener("click", ResetAfterDraw);
+		}
+	}
 
-    function checkForWin() {
-        const winner = document.createElement('paragraph');
-        const reset = document.createElement('button');
-        reset.textContent = 'Reset';
-        reset.onclick = function() {
-            instructions.removeChild(winner);
-            instructions.removeChild(reset);
-            start();
-        }
+	function ResetAfterWin() {
+		Prompting.removeChild(Winner);
+		Prompting.removeChild(Reset);
+		StartGame();
+	}
 
-        if ((squareOne.textContent === 'X' && squareTwo.textContent === 'X' && squareThree.textContent === 'X')
-        || (squareFour.textContent === 'X' && squareFive.textContent === 'X' && squareSix.textContent === 'X')
-        || (squareSeven.textContent === 'X' && squareEight.textContent === 'X' && squareNine.textContent === 'X')
-        || (squareOne.textContent === 'X' && squareFour.textContent === 'X' && squareSeven.textContent === 'X')
-        || (squareTwo.textContent === 'X' && squareFive.textContent === 'X' && squareEight.textContent === 'X')
-        || (squareThree.textContent === 'X' && squareSix.textContent === 'X' && squareNine.textContent === 'X')
-        || (squareOne.textContent === 'X' && squareFive.textContent === 'X' && squareNine.textContent === 'X')
-        || (squareSeven.textContent === 'X' && squareFive.textContent === 'X' && squareThree.textContent === 'X')) {
-            instructions.removeChild(currentTurn);
-            winner.textContent = 'X wins!';
-            instructions.appendChild(winner);
-            instructions.appendChild(reset);
-            squareOne.removeEventListener('click', move);
-            squareTwo.removeEventListener('click', move);
-            squareThree.removeEventListener('click', move);
-            squareFour.removeEventListener('click', move);
-            squareFive.removeEventListener('click', move);
-            squareSix.removeEventListener('click', move);
-            squareSeven.removeEventListener('click', move);
-            squareEight.removeEventListener('click', move);
-            squareNine.removeEventListener('click', move);
-        } else if ((squareOne.textContent === 'O' && squareTwo.textContent === 'O' && squareThree.textContent === 'O')
-        || (squareFour.textContent === 'O' && squareFive.textContent === 'O' && squareSix.textContent === 'O')
-        || (squareSeven.textContent === 'O' && squareEight.textContent === 'O' && squareNine.textContent === 'O')
-        || (squareOne.textContent === 'O' && squareFour.textContent === 'O' && squareSeven.textContent === 'O')
-        || (squareTwo.textContent === 'O' && squareFive.textContent === 'O' && squareEight.textContent === 'O')
-        || (squareThree.textContent === 'O' && squareSix.textContent === 'O' && squareNine.textContent === 'O')
-        || (squareOne.textContent === 'O' && squareFive.textContent === 'O' && squareNine.textContent === 'O')
-        || (squareSeven.textContent === 'O' && squareFive.textContent === 'O' && squareThree.textContent === 'O')) {
-            instructions.removeChild(currentTurn);
-            winner.textContent = 'O wins!';
-            instructions.appendChild(winner);
-            instructions.appendChild(reset);
-            squareOne.removeEventListener('click', move);
-            squareTwo.removeEventListener('click', move);
-            squareThree.removeEventListener('click', move);
-            squareFour.removeEventListener('click', move);
-            squareFive.removeEventListener('click', move);
-            squareSix.removeEventListener('click', move);
-            squareSeven.removeEventListener('click', move);
-            squareEight.removeEventListener('click', move);
-            squareNine.removeEventListener('click', move);
-        }
-    }
+	function ResetAfterDraw() {
+		Prompting.removeChild(Draw);
+		Prompting.removeChild(Reset);
+		StartGame();
+	}
 
-    function checkForDraw() {
-        if (squareOne.textContent !== ''
-        && squareTwo.textContent !== ''
-        && squareThree.textContent !== ''
-        && squareFour.textContent !== ''
-        && squareFive.textContent !== ''
-        && squareSix.textContent !==''
-        && squareSeven.textContent !== ''
-        && squareEight.textContent !== ''
-        && squareNine.textContent !=='') {
-            instructions.removeChild(currentTurn);
-            const draw = document.createElement('paragraph');
-            draw.textContent = "It's a draw!";
-            instructions.appendChild(draw);
-            const reset = document.createElement('button');
-            reset.textContent = 'Reset';
-            reset.onclick = function() {
-                instructions.removeChild(draw);
-                instructions.removeChild(reset);
-                start();
-            }
-            instructions.appendChild(reset);
-            squareOne.removeEventListener('click', move);
-            squareTwo.removeEventListener('click', move);
-            squareThree.removeEventListener('click', move);
-            squareFour.removeEventListener('click', move);
-            squareFive.removeEventListener('click', move);
-            squareSix.removeEventListener('click', move);
-            squareSeven.removeEventListener('click', move);
-            squareEight.removeEventListener('click', move);
-            squareNine.removeEventListener('click', move);
-        }
-    }
 
-    function move(e) {
-        if (e.target.textContent === '') {
-            if (turn === 'X' || turn === 'O') {
-                e.target.textContent = turn;
-                if (turn === 'X') {
-                    turn = 'O';
-                } else {
-                    turn = 'X';
-                }
-                currentTurn.textContent = `${turn}'s turn`;
-            }
-        }
-        checkForWin();
-        checkForDraw();
-    }
+	TicTacToeSquareOne.textContent = "";
+	TicTacToeSquareTwo.textContent = "";
+	TicTacToeSquareThree.textContent = "";
+	TicTacToeSquareFour.textContent = "";
+	TicTacToeSquareFive.textContent = "";
+	TicTacToeSquareSix.textContent = "";
+	TicTacToeSquareSeven.textContent = "";
+	TicTacToeSquareEight.textContent = "";
+	TicTacToeSquareNine.textContent = "";
 
-    squareOne.addEventListener('click', move);
+	PickSides.textContent = "Who moves first?:";
+	Prompting.appendChild(PickSides);
 
-    squareTwo.addEventListener('click', move);
+	X.textContent = "X";
+	Prompting.appendChild(X);
+	X.addEventListener("click", MovesFirst);
 
-    squareThree.addEventListener('click', move);
+	O.textContent = "O";
+	Prompting.appendChild(O);
+	O.addEventListener("click", MovesFirst);
 
-    squareFour.addEventListener('click', move);
+	Draw.textContent = "It's a draw!";
 
-    squareFive.addEventListener('click', move);
-
-    squareSix.addEventListener('click', move);
-
-    squareSeven.addEventListener('click', move);
-
-    squareEight.addEventListener('click', move);
-
-    squareNine.addEventListener('click', move);
+	Reset.textContent = "Reset";
 }
 
-start();
+
+window.addEventListener("load", StartGame);
